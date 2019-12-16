@@ -1,0 +1,34 @@
+<template>
+	<view>
+		<lin-nav-bar :title="true">
+			<template slot="title"><text class="font-md ml-3">微信(10)</text></template>
+		</lin-nav-bar>
+		<view style="height: 1000px;">
+			列表
+		</view>
+	</view>
+</template>
+
+<script>
+	import linNavBar from '@/components/lin-ui/lin-nav-bar.vue';
+	export default {
+		components:{
+			linNavBar
+		},
+		data() {
+			return {
+				
+			}
+		},
+		onLoad() {
+			
+		},
+		methods: {
+
+		}
+	}
+</script>
+
+<style>
+	
+</style>
