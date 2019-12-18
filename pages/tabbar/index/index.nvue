@@ -5,11 +5,15 @@
 		</lin-nav-bar>
 		<!-- 列表 -->
 		<block v-for="(item,index) in list" :key="index">
-			<lin-media-list :class="(showBoxShaw && tapIndex==index)?'bg-light':''" @long="long" :item="item" :index="index"></lin-media-list>
+			<lin-media-list :backClass="showBoxShaw && propIndex==index?'bg-light':''" @long="long" :item="item" :index="index"></lin-media-list>
 		</block>
 		<!-- 弹出层 -->
-		<lin-popup ref="extend" :bodyWidth="300" :bodyHeight="400">
-			<view style="width: 300rpx;height: 400rpx;"></view>
+		<lin-popup @cancelBack="cancelBack" ref="extend" :bodyWidth="300" :bodyHeight="getMenusHeight">
+			<view class="flex flex-column" style="width: 240rpx;" :style="getMenusStyle">
+				<view class="flex-1 flex align-center" hover-class="bg-light" v-for="(item,index) in menus" :key="index" @click="clickEvent(item.event)">
+					<text class="font-md pl-3">{{item.name}}</text>
+				</view>
+			</view>
 		</lin-popup>
 	</view>
 </template>
@@ -24,10 +28,30 @@
 			linMediaList,
 			linPopup
 		},
+		computed: {
+			// 动态获取菜单高度
+			getMenusHeight() {
+				let H = 100
+				return this.menus.length * H
+			},
+			// 获取菜单的样式
+			getMenusStyle() {
+				return `height: ${this.getMenusHeight}rpx;`
+			}
+		},
 		data() {
 			return {
-				tapIndex: 0,
+				propIndex: -1,
 				showBoxShaw: false,
+				menus: [{
+						name: "设为置顶",
+						event: "setTop"
+					},
+					{
+						name: "删除该聊天",
+						event: "delChat"
+					}
+				],
 				list: [{
 						avatar: "/static/images/demo/demo6.jpg",
 						nickname: "summer",
@@ -64,17 +88,41 @@
 		},
 		methods: {
 			openExtend() {
-				this.$refs.extend.show(100,100)
+				this.$refs.extend.show(100, 100)
 			},
-			long({x,y,index}){
+			long({
+				x,
+				y,
+				index
+			}) {
+				// 初始化
+				this.propIndex = index
 				this.showBoxShaw = true
-				this.tapIndex = index
-				this.$refs.extend.show(x,y)
+				this.$refs.extend.show(x, y)
 			},
+			// 取消选中的背景色
+			cancelBack() {
+				this.showBoxShaw = false
+			},
+			// 分发菜单事件
+			clickEvent(event) {
+				switch (event) {
+					case "setTop":
+
+						break;
+					case "delChat": // 删除当前会话
+						this.delChat()
+						break;
+				}
+				this.$refs.extend.hide()
+			},
+			// 删除当前会话
+			delChat() {
+				this.list.splice(this.propIndex, 1)
+			}
 		}
 	}
 </script>
 
 <style>
-
 </style>

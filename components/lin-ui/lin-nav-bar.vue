@@ -19,33 +19,80 @@
 		</view>
 		<!-- 占位 -->
 		<view v-if="fixed" :style="fixedStyle"></view>
+		
+		<!-- 扩展菜单 -->
+		<lin-popup ref="extendNav" :bodyWidth="320" :bodyHeight="525"
+		bodyBgColor="bg-dark" transformOrigin="right top">
+			<view class="flex flex-column bg-dark" 
+			style="width: 320rpx;height: 525rpx;">
+				<view class="flex-1 flex align-center" 
+				hover-class="bg-hover-dark"
+				v-for="(item,index) in menus"
+				:key="index"
+				@click="clickEvent(item.event)">
+					<text class="iconfont pl-3 pr-2 font-md text-white">{{item.icon}}</text>
+					<text class="font-md text-white">{{item.name}}</text>
+				</view>
+			</view>
+		</lin-popup>
+		
+		
 	</view>
 </template>
 
 <script>
 	import linIconButton from './lin-icon-button.vue';
+	import linPopup from "./lin-popup.vue";
 	export default {
 		props: {
 			title: {
-				type: [String, Boolean],
-				default: false
+				type: [String,Boolean],
+				default:false 
 			},
-			fixed: {
-				type: Boolean,
-				default: true
+			fixed:{
+				type:Boolean,
+				default:true
 			},
-			noreadnum: {
-				type: Number,
-				default: 0
+			noreadnum:{
+				type:Number,
+				default:0
 			}
 		},
-		components: {
-			linIconButton
+		components:{
+			linIconButton,
+			linPopup
 		},
 		data() {
 			return {
-				statusBarHeight: 0,
-				navBarHeight: 0
+				statusBarHeight:0,
+				navBarHeight:0,
+				menus:[
+					{
+						name:"发起群聊",
+						event:"",
+						icon:"\ue633"
+					},
+					{
+						name:"添加好友",
+						event:"",
+						icon:"\ue65d"
+					},
+					{
+						name:"扫一扫",
+						event:"",
+						icon:"\ue614"
+					},
+					{
+						name:"收付款",
+						event:"",
+						icon:"\ue66c"
+					},
+					{
+						name:"帮助与反馈",
+						event:"",
+						icon:"\ue66c"
+					}
+				],
 			}
 		},
 		mounted() {
@@ -58,17 +105,14 @@
 			fixedStyle() {
 				return `height:${this.navBarHeight}px`
 			},
-			getTitle() {
-				let noreadnum = this.noreadnum > 0 ? '(' + this.noreadnum + ')' : ''
+			getTitle(){
+				let noreadnum = this.noreadnum > 0 ? '('+this.noreadnum+')' : ''
 				return this.title + noreadnum
 			}
 		},
 		methods: {
-			search(){
-				console.log("search");
-			},
 			openExtend() {
-				this.$emit('openExtend')
+				this.$refs.extendNav.show(uni.upx2px(415),uni.upx2px(150))
 			}
 		},
 	}
