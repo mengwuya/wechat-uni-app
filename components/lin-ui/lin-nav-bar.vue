@@ -8,12 +8,12 @@
 				<!-- 左边 -->
 				<view class="flex align-center">
 					<!-- 标题 -->
-					<slot name="title"></slot>
+					<text v-if="title" class="font-md ml-3">{{getTitle}}</text>
 				</view>
 				<!-- 右边 -->
 				<view class="flex align-center">
-					<lin-icon-button><text class="iconfont font-md">&#xe6e3;</text></lin-icon-button>
-					<lin-icon-button><text class="iconfont font-md">&#xe682;</text></lin-icon-button>
+					<lin-icon-button @click="search"><text class="iconfont font-md">&#xe6e3;</text></lin-icon-button>
+					<lin-icon-button @click="openExtend"><text class="iconfont font-md">&#xe682;</text></lin-icon-button>
 				</view>
 			</view>
 		</view>
@@ -27,21 +27,25 @@
 	export default {
 		props: {
 			title: {
-				type: Boolean,
-				default:false 
+				type: [String, Boolean],
+				default: false
 			},
-			fixed:{
-				type:Boolean,
-				default:true
+			fixed: {
+				type: Boolean,
+				default: true
+			},
+			noreadnum: {
+				type: Number,
+				default: 0
 			}
 		},
-		components:{
+		components: {
 			linIconButton
 		},
 		data() {
 			return {
-				statusBarHeight:0,
-				navBarHeight:0
+				statusBarHeight: 0,
+				navBarHeight: 0
 			}
 		},
 		mounted() {
@@ -53,6 +57,18 @@
 		computed: {
 			fixedStyle() {
 				return `height:${this.navBarHeight}px`
+			},
+			getTitle() {
+				let noreadnum = this.noreadnum > 0 ? '(' + this.noreadnum + ')' : ''
+				return this.title + noreadnum
+			}
+		},
+		methods: {
+			search(){
+				console.log("search");
+			},
+			openExtend() {
+				this.$emit('openExtend')
 			}
 		},
 	}

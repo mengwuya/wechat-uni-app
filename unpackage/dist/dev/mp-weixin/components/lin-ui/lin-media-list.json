@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "lin-avater": "/components/lin-ui/lin-avater",
+    "lin-badge": "/components/lin-ui/lin-badge"
+  },
+  "component": true
+}

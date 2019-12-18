@@ -1,0 +1,1 @@
+<text class="{{['free-badge bg-danger text-white rounded-circle font-sm data-v-54154cc6',badgeClass]}}" style="{{(badgeStyle)}}">{{badgeNumber}}</text>

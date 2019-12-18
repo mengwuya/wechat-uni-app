@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "lin-nav-bar": "/components/lin-ui/lin-nav-bar",
+    "lin-media-list": "/components/lin-ui/lin-media-list",
+    "lin-popup": "/components/lin-ui/lin-popup"
+  }
+}

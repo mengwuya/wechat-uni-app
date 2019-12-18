@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "lin-icon-button": "/components/lin-ui/lin-icon-button"
+  },
+  "component": true
+}

@@ -1,34 +1,80 @@
 <template>
 	<view>
-		<lin-nav-bar :title="true">
-			<template slot="title"><text class="font-md ml-3">微信(10)</text></template>
+		<!-- 导航栏 -->
+		<lin-nav-bar title="仿微信" :noreadnum="1" @openExtend="openExtend">
 		</lin-nav-bar>
-		<view style="height: 1000px;">
-			列表
-		</view>
+		<!-- 列表 -->
+		<block v-for="(item,index) in list" :key="index">
+			<lin-media-list :class="(showBoxShaw && tapIndex==index)?'bg-light':''" @long="long" :item="item" :index="index"></lin-media-list>
+		</block>
+		<!-- 弹出层 -->
+		<lin-popup ref="extend" :bodyWidth="300" :bodyHeight="400">
+			<view style="width: 300rpx;height: 400rpx;"></view>
+		</lin-popup>
 	</view>
 </template>
 
 <script>
 	import linNavBar from '@/components/lin-ui/lin-nav-bar.vue';
+	import linMediaList from "@/components/lin-ui/lin-media-list.vue";
+	import linPopup from "@/components/lin-ui/lin-popup.vue";
 	export default {
-		components:{
-			linNavBar
+		components: {
+			linNavBar,
+			linMediaList,
+			linPopup
 		},
 		data() {
 			return {
-				
+				tapIndex: 0,
+				showBoxShaw: false,
+				list: [{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer",
+						update_time: 1567704767,
+						data: "帝莎编程学院",
+						noreadnum: 1
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer",
+						update_time: 1567695767,
+						data: "帝莎编程学院",
+						noreadnum: 0
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer",
+						update_time: 1567695767,
+						data: "帝莎编程学院",
+						noreadnum: 0
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer",
+						update_time: 1567695767,
+						data: "帝莎编程学院",
+						noreadnum: 0
+					}
+				]
 			}
 		},
 		onLoad() {
-			
+
 		},
 		methods: {
-
+			openExtend() {
+				this.$refs.extend.show(100,100)
+			},
+			long({x,y,index}){
+				this.showBoxShaw = true
+				this.tapIndex = index
+				this.$refs.extend.show(x,y)
+			},
 		}
 	}
 </script>
 
 <style>
-	
+
 </style>
