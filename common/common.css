@@ -17,3 +17,11 @@
 .main-text-color{
 	color: #08C060;
 }
+
+.bg-chat-item {
+	background-color: #6BEE68;
+}
+
+.text-chat-icon-item {
+	color: #6BEE68;
+}

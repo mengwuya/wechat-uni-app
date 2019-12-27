@@ -1,11 +1,52 @@
 <template>
-	<view>
+	<view class="page">
+		<lin-nav-bar bgColor="bg-white">
+			<lin-icon-button slot="right"><text class="iconfont font-md">&#xe6ed;</text></lin-icon-button>
+		</lin-nav-bar>
+		
+		<free-list-item cover="../../../static/images/demo/demo6.jpg" coverSize="120" title="楚绵" showRight>
+			<view class="flex flex-column">
+				<text class="text-dark font-lg font-weight-bold">楚绵</text>
+				<text class="text-light-muted font mt-2">仿微信号：summer</text>
+			</view>
+			<view slot="right">
+				<text class="iconfont font-md text-light-muted">&#xe614;</text>
+			</view>
+		</free-list-item>
+		<free-divider></free-divider>
+		<free-list-item title="支付" showRight>
+			<text slot="icon" class="iconfont font-lg py-1">&#xe66c;</text>
+		</free-list-item>
+		<free-divider></free-divider>
+		<free-list-item title="收藏" showRight>
+			<text slot="icon" class="iconfont font-lg py-1">&#xea2d;</text>
+		</free-list-item>
+		<free-list-item title="相册" showRight>
+			<text slot="icon" class="iconfont font-lg py-1">&#xe608;</text>
+		</free-list-item>
+		<free-list-item title="表情" showRight>
+			<text slot="icon" class="iconfont font-lg py-1">&#xe605;</text>
+		</free-list-item>
+		<free-divider></free-divider>
+		<free-list-item title="设置" showRight>
+			<text slot="icon" class="iconfont font-lg py-1">&#xe612;</text>
+		</free-list-item>
 		
 	</view>
 </template>
 
 <script>
+	import linNavBar from "@/components/lin-ui/lin-nav-bar.vue"
+	import linIconButton from "@/components/lin-ui/lin-icon-button.vue"
+	import freeListItem from "@/components/lin-ui/free-list-item.vue"
+	import freeDivider from "@/components/lin-ui/free-divider.vue"
 	export default {
+		components: {
+			linNavBar,
+			linIconButton,
+			freeListItem,
+			freeDivider
+		},
 		data() {
 			return {
 				

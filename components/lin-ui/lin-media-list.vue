@@ -1,6 +1,6 @@
 <template>
-	<view hover-class="bg-light">
-		<div class="flex align-stretch" @click="onClick" @longpress="long">
+	<view :class="item.istop ? 'bg-light' : 'bg-white'" hover-class="bg-light">
+		<div class="flex align-stretch" :class="backClass" @click="onClick" @longpress="long">
 			<view class="flex align-center justify-center position-relative" style="width: 145rpx;">
 				<lin-avater :src="item.avatar" size="92"></lin-avater>
 				<lin-badge badgeClass="position-absolute" badgeStyle="top:15rpx;right:15rpx" v-if="item.noreadnum" :badgeNumber="item.noreadnum"></lin-badge>
@@ -28,14 +28,15 @@
 		},
 		props: {
 			item: Object,
-			index: Number
+			index: Number,
 		},
 		methods: {
-			onClick() {
-				this.$emit('click')
+			onClick(){
+				uni.navigateTo({
+					url: '/pages/chat/chat/chat',
+				});
 			},
 			long(e) {
-				console.log(e);
 				let x = 0
 				let y = 0
 				// #ifdef APP-PLUS-NVUE

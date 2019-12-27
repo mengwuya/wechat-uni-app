@@ -1,0 +1,75 @@
+<template>
+	<view>
+		<!-- 导航栏 -->
+		<lin-nav-bar title="帝莎编程学院" :noreadnum="1" showBack>
+			<lin-icon-button slot="right"><text class="iconfont font-md">&#xe6fd;</text></lin-icon-button>
+		</lin-nav-bar>
+		
+		<!-- 聊天内容区域 -->
+		<scroll-view scroll-y="true" class="px-3 bg-light position-fixed left-0 right-0" style="bottom: 105rpx;" :style="'top:'+navBarHeight+'px'">
+			<!-- 聊天信息列表 -->
+			<view class="flex align-start justify-start position-relative mb-3">
+				<lin-avater size="70" src="/static/images/demo/demo6.jpg"></lin-avater>
+				<text class="iconfont text-white font-md position-absolute chat-left-icon">&#xe609;</text>
+				<div style="max-width:500rpx;" class="bg-white p-2 rounded ml-3">
+					<text class="font-md">你好你好你好你好你好你好你好你好你好你好你好你好你好你好</text>
+				</div>
+			</view>
+			<view class="flex align-start justify-end position-relative mb-3">
+				<div style="max-width:500rpx;" class="bg-chat-item p-2 rounded mr-3">
+					<text class="font-md">你好你好你好你好你好你好你好你好你好你好你好你好你好你好</text>
+				</div>
+				<text class="iconfont text-chat-icon-item font-md position-absolute chat-right-icon">&#xe640;</text>
+				<lin-avater size="70" src="/static/images/demo/demo6.jpg"></lin-avater>
+			</view>
+		</scroll-view>
+		
+		<!-- 底部输入框 -->
+		<view class="position-fixed left-0 bottom-0 right-0 border-top flex align-center" style="background-color: #F7F7F6;height: 105rpx;">
+			<lin-icon-button><text class="iconfont font-md">&#xe606;</text></lin-icon-button>
+			<view class="flex-1">
+				<textarea fixed style="height: 75rpx;" class="border bg-white p-2 font-md"></textarea>
+			</view>
+			<lin-icon-button><text class="iconfont font-md">&#xe605;</text></lin-icon-button>
+			<lin-icon-button><text class="iconfont font-md">&#xe603;</text></lin-icon-button>
+		</view>
+	</view>
+</template>
+
+<script>
+	import linNavBar from "@/components/lin-ui/lin-nav-bar.vue"
+	import linAvater from '@/components/lin-ui/lin-avater.vue'
+	import linIconButton from "@/components/lin-ui/lin-icon-button.vue"
+	export default {
+		components: {
+			linNavBar,
+			linIconButton,
+			linAvater
+		},
+		data() {
+			return {
+				navBarHeight: 0
+			}
+		},
+		mounted() {
+			// #ifdef APP-PLUS-NVUE
+			var statusBarHeight = plus.navigator.getStatusbarHeight()
+			// #endif
+			this.navBarHeight = statusBarHeight + uni.upx2px(90)
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
+<style>
+	.chat-left-icon {
+		left: 80rpx;
+		top: 20rpx;
+	}
+	.chat-right-icon {
+		right: 80rpx;
+		top: 20rpx;
+	}
+</style>

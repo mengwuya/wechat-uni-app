@@ -1,15 +1,27 @@
 <template>
 	<view>
 		<!-- 导航栏 -->
-		<lin-nav-bar title="仿微信" :noreadnum="1" @openExtend="openExtend">
+		<lin-nav-bar title="微信" :noreadnum="1" @openExtend="openExtend">
 		</lin-nav-bar>
-		<!-- 列表 -->
+		<!-- 置顶列表 -->
 		<block v-for="(item,index) in list" :key="index">
-			<lin-media-list :class="(showBoxShaw && tapIndex==index)?'bg-light':''" @long="long" :item="item" :index="index"></lin-media-list>
+			<lin-media-list v-if="item.istop" @long="long" :item="item"
+			 :index="index"></lin-media-list>
 		</block>
+
+		<!-- 非置顶列表 -->
+		<block v-for="(item,index) in list" :key="index">
+			<lin-media-list v-if="!item.istop" @long="long" :item="item"
+			 :index="index"></lin-media-list>
+		</block>
+
 		<!-- 弹出层 -->
-		<lin-popup ref="extend" :bodyWidth="300" :bodyHeight="400">
-			<view style="width: 300rpx;height: 400rpx;"></view>
+		<lin-popup ref="extend" :bodyWidth="300" :bodyHeight="getMenusHeight">
+			<view class="flex flex-column" style="width: 240rpx;" :style="getMenusStyle">
+				<view class="flex-1 flex align-center" hover-class="bg-light" v-for="(item,index) in menus" :key="index" @click="clickEvent(item.event)">
+					<text class="font-md pl-3">{{item.name}}</text>
+				</view>
+			</view>
 		</lin-popup>
 	</view>
 </template>
@@ -24,37 +36,124 @@
 			linMediaList,
 			linPopup
 		},
+		computed: {
+			// 动态获取菜单高度
+			getMenusHeight() {
+				let H = 100
+				return this.menus.length * H
+			},
+			// 获取菜单的样式
+			getMenusStyle() {
+				return `height: ${this.getMenusHeight}rpx;`
+			}
+		},
 		data() {
 			return {
-				tapIndex: 0,
-				showBoxShaw: false,
+				propIndex: -1,
+				menus: [{
+						name: "设为置顶",
+						event: "setTop"
+					},
+					{
+						name: "删除该聊天",
+						event: "delChat"
+					}
+				],
 				list: [{
 						avatar: "/static/images/demo/demo6.jpg",
 						nickname: "summer",
 						update_time: 1567704767,
 						data: "帝莎编程学院",
-						noreadnum: 1
+						noreadnum: 1,
+						istop: false
 					},
 					{
 						avatar: "/static/images/demo/demo6.jpg",
 						nickname: "summer",
 						update_time: 1567695767,
 						data: "帝莎编程学院",
-						noreadnum: 0
+						noreadnum: 0,
+						istop: false
 					},
 					{
 						avatar: "/static/images/demo/demo6.jpg",
 						nickname: "summer",
 						update_time: 1567695767,
 						data: "帝莎编程学院",
-						noreadnum: 0
+						noreadnum: 0,
+						istop: false
 					},
 					{
 						avatar: "/static/images/demo/demo6.jpg",
 						nickname: "summer",
 						update_time: 1567695767,
 						data: "帝莎编程学院",
-						noreadnum: 0
+						noreadnum: 0,
+						istop: false
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer123",
+						update_time: 1567704767,
+						data: "帝莎编程学院",
+						noreadnum: 1,
+						istop: true
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer456",
+						update_time: 1567695767,
+						data: "帝莎编程学院",
+						noreadnum: 0,
+						istop: false
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer",
+						update_time: 1567695767,
+						data: "帝莎编程学院",
+						noreadnum: 0,
+						istop: false
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer",
+						update_time: 1567695767,
+						data: "帝莎编程学院",
+						noreadnum: 0,
+						istop: false
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer",
+						update_time: 1567704767,
+						data: "帝莎编程学院",
+						noreadnum: 1,
+						istop: false
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer",
+						update_time: 1567695767,
+						data: "帝莎编程学院",
+						noreadnum: 0,
+						istop: false
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer",
+						update_time: 1567695767,
+						data: "帝莎编程学院",
+						noreadnum: 0,
+						istop: false
+					},
+					{
+						avatar: "/static/images/demo/demo6.jpg",
+						nickname: "summer",
+						update_time: 1567695767,
+						data: "帝莎编程学院",
+						noreadnum: 0,
+						istop: false
 					}
 				]
 			}
@@ -64,17 +163,51 @@
 		},
 		methods: {
 			openExtend() {
-				this.$refs.extend.show(100,100)
+				this.$refs.extend.show(100, 100)
 			},
-			long({x,y,index}){
-				this.showBoxShaw = true
-				this.tapIndex = index
-				this.$refs.extend.show(x,y)
+			long({
+				x,
+				y,
+				index
+			}) {
+				// 初始化
+				this.propIndex = index
+				// 拿到当前对象
+				let item = this.list[index]
+				// 判断之前是否处于置顶状态
+				this.menus[0].name = item.istop ? '取消置顶' : '设为置顶'
+				this.$refs.extend.show(x, y)
 			},
+			// 分发菜单事件
+			clickEvent(event) {
+				switch (event) {
+					case "setTop":
+						this.setTop()
+						break;
+					case "delChat": // 删除当前会话
+						this.delChat()
+						break;
+				}
+			},
+			// 删除当前会话
+			delChat() {
+				setTimeout(() => {
+					this.list.splice(this.propIndex, 1)
+					this.$refs.extend.hide()
+				}, 300);
+
+			},
+			// 置顶/取消置顶会话
+			setTop() {
+				setTimeout(() => {
+					let item = this.list[this.propIndex]
+					item.istop = !item.istop
+					this.$refs.extend.hide()
+				}, 300);
+			}
 		}
 	}
 </script>
 
 <style>
-
 </style>

@@ -442,7 +442,7 @@
 .bg-hover-danger{ background-color: #bd2130;}
 .bg-light { background-color: #f8f9fa;}
 .bg-hover-light{ background-color: #EFEFEF;}
-.bg-dark { background-color: #343a40;}
+.bg-dark { background-color: #343a40; z-index: 999;}
 .bg-hover-dark { background-color: #1d2124;}
 .bg-white { background-color: #ffffff;}
 .bg-transparent { background-color: transparent;}

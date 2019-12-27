@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "lin-icon-button": "/components/lin-ui/lin-icon-button"
+    "lin-icon-button": "/components/lin-ui/lin-icon-button",
+    "lin-popup": "/components/lin-ui/lin-popup"
   },
   "component": true
 }
