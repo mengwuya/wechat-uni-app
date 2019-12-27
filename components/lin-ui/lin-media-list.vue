@@ -1,5 +1,9 @@
 <template>
+<<<<<<< HEAD
 	<view :class="item.istop ? 'bg-light' : 'bg-white'" hover-class="bg-light">
+=======
+	<view hover-class="bg-light">
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 		<div class="flex align-stretch" :class="backClass" @click="onClick" @longpress="long">
 			<view class="flex align-center justify-center position-relative" style="width: 145rpx;">
 				<lin-avater :src="item.avatar" size="92"></lin-avater>
@@ -29,6 +33,10 @@
 		props: {
 			item: Object,
 			index: Number,
+<<<<<<< HEAD
+=======
+			backClass: String
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 		},
 		methods: {
 			onClick(){

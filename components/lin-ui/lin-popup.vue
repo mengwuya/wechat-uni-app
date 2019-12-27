@@ -123,6 +123,10 @@
 				// #ifndef APP-PLUS-NVUE
 				this.status = false
 				// #endif
+<<<<<<< HEAD
+=======
+				this.$emit('cancelBack')
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 			}
 		}
 	}

@@ -49,6 +49,7 @@
 	import linPopup from "./lin-popup.vue";
 	export default {
 		props: {
+<<<<<<< HEAD
 			showBack: {
 				type: Boolean,
 				default: false
@@ -68,6 +69,19 @@
 			bgColor: {
 				type: String,
 				default: 'bg-light'
+=======
+			title: {
+				type: [String,Boolean],
+				default:false 
+			},
+			fixed:{
+				type:Boolean,
+				default:true
+			},
+			noreadnum:{
+				type:Number,
+				default:0
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 			}
 		},
 		components:{
@@ -129,11 +143,14 @@
 		methods: {
 			openExtend() {
 				this.$refs.extendNav.show(uni.upx2px(415),uni.upx2px(150))
+<<<<<<< HEAD
 			},
 			back() {
 				uni.navigateBack({
 					delta:1
 				})
+=======
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 			}
 		},
 	}

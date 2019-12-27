@@ -5,8 +5,12 @@
 		</lin-nav-bar>
 		<!-- 置顶列表 -->
 		<block v-for="(item,index) in list" :key="index">
+<<<<<<< HEAD
 			<lin-media-list v-if="item.istop" @long="long" :item="item"
 			 :index="index"></lin-media-list>
+=======
+			<lin-media-list :backClass="showBoxShaw && propIndex==index?'bg-light':''" @long="long" :item="item" :index="index"></lin-media-list>
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 		</block>
 
 		<!-- 非置顶列表 -->
@@ -16,7 +20,11 @@
 		</block>
 
 		<!-- 弹出层 -->
+<<<<<<< HEAD
 		<lin-popup ref="extend" :bodyWidth="300" :bodyHeight="getMenusHeight">
+=======
+		<lin-popup @cancelBack="cancelBack" ref="extend" :bodyWidth="300" :bodyHeight="getMenusHeight">
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 			<view class="flex flex-column" style="width: 240rpx;" :style="getMenusStyle">
 				<view class="flex-1 flex align-center" hover-class="bg-light" v-for="(item,index) in menus" :key="index" @click="clickEvent(item.event)">
 					<text class="font-md pl-3">{{item.name}}</text>
@@ -50,6 +58,10 @@
 		data() {
 			return {
 				propIndex: -1,
+<<<<<<< HEAD
+=======
+				showBoxShaw: false,
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 				menus: [{
 						name: "设为置顶",
 						event: "setTop"
@@ -172,22 +184,37 @@
 			}) {
 				// 初始化
 				this.propIndex = index
+<<<<<<< HEAD
 				// 拿到当前对象
 				let item = this.list[index]
 				// 判断之前是否处于置顶状态
 				this.menus[0].name = item.istop ? '取消置顶' : '设为置顶'
 				this.$refs.extend.show(x, y)
 			},
+=======
+				this.showBoxShaw = true
+				this.$refs.extend.show(x, y)
+			},
+			// 取消选中的背景色
+			cancelBack() {
+				this.showBoxShaw = false
+			},
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 			// 分发菜单事件
 			clickEvent(event) {
 				switch (event) {
 					case "setTop":
+<<<<<<< HEAD
 						this.setTop()
+=======
+
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 						break;
 					case "delChat": // 删除当前会话
 						this.delChat()
 						break;
 				}
+<<<<<<< HEAD
 			},
 			// 删除当前会话
 			delChat() {
@@ -204,6 +231,13 @@
 					item.istop = !item.istop
 					this.$refs.extend.hide()
 				}, 300);
+=======
+				this.$refs.extend.hide()
+			},
+			// 删除当前会话
+			delChat() {
+				this.list.splice(this.propIndex, 1)
+>>>>>>> e19336ba77b62792e2346b31f190281e2a918976
 			}
 		}
 	}
